@@ -40,6 +40,8 @@ class DatasetManager:
         "tolokers",
     ]
 
+    POINTCLOUD_DATASETS: ClassVar[list[str]] = ["dark_photons"]
+
     @classmethod
     def discover_datasets(
         cls, package_path: str
@@ -100,6 +102,7 @@ class DatasetManager:
             + cls.TU_DATASETS
             + cls.FIXED_SPLITS_DATASETS
             + cls.HETEROPHILIC_DATASETS
+            + cls.POINTCLOUD_DATASETS
         )
 
 
@@ -115,6 +118,7 @@ PLANETOID_DATASETS = manager.PLANETOID_DATASETS
 TU_DATASETS = manager.TU_DATASETS
 FIXED_SPLITS_DATASETS = manager.FIXED_SPLITS_DATASETS
 HETEROPHILIC_DATASETS = manager.HETEROPHILIC_DATASETS
+POINTCLOUD_DATASETS = manager.POINTCLOUD_DATASETS
 
 # Automatically generate __all__
 __all__ = [
@@ -124,6 +128,7 @@ __all__ = [
     "TU_DATASETS",
     "FIXED_SPLITS_DATASETS",
     "HETEROPHILIC_DATASETS",
+    "POINTCLOUD_DATASETS",
     "MANUAL_DATASETS",
     # Discovered dataset classes
     *MANUAL_DATASETS.keys(),

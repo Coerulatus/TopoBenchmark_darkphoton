@@ -8,7 +8,11 @@ from topobenchmark.nn.wrappers.cell import (
     CWNWrapper,
 )
 from topobenchmark.nn.wrappers.combinatorial import TuneWrapper
-from topobenchmark.nn.wrappers.graph import GNNWrapper, GraphMLPWrapper
+from topobenchmark.nn.wrappers.graph import (
+    GNNWrapper,
+    GraphMLPWrapper,
+    MLPWrapper,
+)
 from topobenchmark.nn.wrappers.hypergraph import HypergraphWrapper
 from topobenchmark.nn.wrappers.simplicial import (
     SANWrapper,
@@ -38,6 +42,7 @@ __all__ = [
     "SCCNWrapper",
     "SCNWrapper",
     "TuneWrapper",
+    "MLPWrapper",
     # "OtherWrapper1",
     # "OtherWrapper2",
     # ... add other readout classes here
