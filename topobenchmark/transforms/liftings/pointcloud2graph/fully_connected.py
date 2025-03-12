@@ -19,8 +19,8 @@ class FullyConnectedLifting(PointCloud2GraphLifting):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def forward(self, data):
-        """Forward pass.
+    def lift_topology(self, data):
+        """Lift the topology of a point cloud to a fully connected graph.
 
         Parameters
         ----------
@@ -42,4 +42,8 @@ class FullyConnectedLifting(PointCloud2GraphLifting):
         edge_attr = None
         data.edge_index = edge_index
         data.edge_attr = edge_attr
-        return data
+        return {
+            "x_0": data.x,
+            "edge_index": edge_index,
+            "edge_attr": edge_attr,
+        }

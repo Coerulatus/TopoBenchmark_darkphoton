@@ -1,5 +1,7 @@
 """Dark Photon Dataset."""
 
+import math
+from itertools import combinations
 import os, shutil
 import os.path as osp
 from tqdm import tqdm
@@ -212,15 +214,18 @@ class DarkPhotonDataset(InMemoryDataset):
                 for layer in range(0, 4):
                     _layer_nodes = []
                     for attribute in attributes:
-                        _layer_nodes.append(
-                            torch.tensor(
-                                list(
-                                    dataset_by_layer[layer][attribute][
-                                        gid
-                                    ].values()
-                                )
+                        nodes = torch.tensor(
+                            list(
+                                dataset_by_layer[layer][attribute][
+                                    gid
+                                ].values()
                             )
                         )
+                        nodes_to_fix = nodes > math.pi
+                        nodes[nodes_to_fix] -= 2 * math.pi
+                        nodes_to_fix = nodes < -math.pi
+                        nodes[nodes_to_fix] += 2 * math.pi
+                        _layer_nodes.append(nodes)
                     _layer_nodes.insert(
                         0, torch.ones_like(_layer_nodes[-1]) * layer
                     )

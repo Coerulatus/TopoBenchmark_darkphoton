@@ -18,10 +18,10 @@ tags: ["mlp", "dark_photons"]
 seed: 42
 
 trainer:
-  min_epochs: 50
-  max_epochs: 100
-  gradient_clip_val: 0.1
-  check_val_every_n_epoch: 2
+  min_epochs: 0
+  max_epochs: 2
+  gradient_clip_val: 0.5
+  check_val_every_n_epoch: 1
 
 model:
   feature_encoder:
@@ -29,10 +29,6 @@ model:
   backbone:
     n_layers: 2
   compile: false
-
-dataset:
-  split_type: k-fold
-  k: 10
 
 model_checkpoint:
   dirpath: checkpoints/${dataset.loader.parameters.data_name}/${model.model_name}

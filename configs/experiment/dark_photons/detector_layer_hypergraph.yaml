@@ -5,22 +5,23 @@
 
 defaults:
   - override /dataset: pointcloud/dark_photons
-  - override /model: graph/mlp
+  - override /model: hypergraph/allsettransformer
   - override /callbacks: default
   - override /trainer: default
 
 transforms:
-    pointcloud2graph:
+    pointcloud2hypergraph:
       _target_: topobenchmark.transforms.data_transform.DataTransform
       transform_type: 'lifting'
-      transform_name: "FullyConnectedLifting"
+      transform_name: "DetectorLayerLifting"
       preserve_edge_attr: False
       complex_dim: 1
+      layers: [0,1,2,3]
 
 # all parameters below will be merged with parameters from default configurations set above
 # this allows you to overwrite only specified parameters
 
-tags: ["fully_connected", "gat", "dark_photons"]
+tags: ["allsettransformer", "dark_photons", "detector_layer"]
 
 seed: 42
 
@@ -33,8 +34,6 @@ trainer:
 model:
   feature_encoder:
     out_channels: 32
-  backbone:
-    n_layers: 2
   compile: false
 
 model_checkpoint:
