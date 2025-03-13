@@ -5,7 +5,7 @@
 
 defaults:
   - override /dataset: pointcloud/dark_photons
-  - override /model: hypergraph/allsettransformer
+  - override /model: hypergraph/edgnn
   - override /callbacks: default
   - override /trainer: default
 
@@ -17,11 +17,13 @@ transforms:
       preserve_edge_attr: False
       complex_dim: 1
       layers: [0,1,2,3]
+      feature_lifting: 'MaxDifference'
+      same_detector: True
 
 # all parameters below will be merged with parameters from default configurations set above
 # this allows you to overwrite only specified parameters
 
-tags: ["allsettransformer", "dark_photons", "detector_layer"]
+tags: ["edgnn", "dark_photons", "detector_layer", "max_diff"]
 
 seed: 42
 

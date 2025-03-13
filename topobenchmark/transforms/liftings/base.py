@@ -13,14 +13,14 @@ class AbstractLifting(torch_geometric.transforms.BaseTransform):
     Parameters
     ----------
     feature_lifting : str, optional
-        The feature lifting method to be used. Default is 'ProjectionSum'.
+        The feature lifting method to be used. Default is None.
     **kwargs : optional
         Additional arguments for the class.
     """
 
     def __init__(self, feature_lifting=None, **kwargs):
         super().__init__()
-        self.feature_lifting = FEATURE_LIFTINGS[feature_lifting]()
+        self.feature_lifting = FEATURE_LIFTINGS[feature_lifting](**kwargs)
         self.neighborhoods = kwargs.get("neighborhoods")
 
     @abstractmethod

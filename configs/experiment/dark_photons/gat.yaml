@@ -5,7 +5,7 @@
 
 defaults:
   - override /dataset: pointcloud/dark_photons
-  - override /model: graph/mlp
+  - override /model: graph/gat
   - override /callbacks: default
   - override /trainer: default
 

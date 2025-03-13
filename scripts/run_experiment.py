@@ -4,9 +4,9 @@ import subprocess
 
 # Configurations
 project_name = "dark_photons"
-experiments = ["mlp", "gat", "detector_layer_hypergraph"]
+experiments = ["detector_layer_hypergraph"]  # "mlp", "gat",
 
-data_seeds = [4, 3, 2, 1, 0]
+data_seeds = [0]
 # Run the commands in Python
 for experiment in experiments:
     for data_seed in data_seeds:
