@@ -1,7 +1,6 @@
 """Fully connected graph lifting."""
 
 import torch
-
 from topobenchmark.transforms.liftings.pointcloud2graph import (
     PointCloud2GraphLifting,
 )

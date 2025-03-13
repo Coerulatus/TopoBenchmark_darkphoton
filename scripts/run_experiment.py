@@ -13,7 +13,7 @@ for experiment in experiments:
         command = [
             "python",
             "-m",
-            "topobenchmark",
+            "topobench",
             f"experiment=dark_photons/{experiment}",
             f"logger.wandb.project={project_name}",
             f"dataset.split_params.data_seed={data_seed}",

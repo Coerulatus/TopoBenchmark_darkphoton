@@ -1,19 +1,19 @@
-"""PointCloud2Hypergraph liftings with automated exports."""
+"""PointCloud2Graph liftings with automated exports."""
 
 import inspect
 from importlib import util
 from pathlib import Path
 from typing import Any
 
-from .base import PointCloud2HypergraphLifting
+from .base import PointCloud2GraphLifting
 
 
 class ModuleExportsManager:
-    """Manages automatic discovery and registration of PointCloud2Hypergraph lifting classes."""
+    """Manages automatic discovery and registration of PointCloud2Graph lifting classes."""
 
     @staticmethod
     def is_lifting_class(obj: Any) -> bool:
-        """Check if an object is a valid PointCloud2Hypergraph lifting class.
+        """Check if an object is a valid PointCloud2Graph lifting class.
 
         Parameters
         ----------
@@ -23,20 +23,20 @@ class ModuleExportsManager:
         Returns
         -------
         bool
-            True if the object is a valid PointCloud2Hypergraph lifting class (non-private class
-            inheriting from PointCloud2HypergraphLifting), False otherwise.
+            True if the object is a valid PointCloud2Graph lifting class (non-private class
+            inheriting from PointCloud2GraphLifting), False otherwise.
         """
         return (
             inspect.isclass(obj)
             and obj.__module__ == "__main__"
             and not obj.__name__.startswith("_")
-            and issubclass(obj, PointCloud2HypergraphLifting)
-            and obj != PointCloud2HypergraphLifting
+            and issubclass(obj, PointCloud2GraphLifting)
+            and obj != PointCloud2GraphLifting
         )
 
     @classmethod
     def discover_liftings(cls, package_path: str) -> dict[str, type]:
-        """Dynamically discover all PointCloud2Hypergraph lifting classes in the package.
+        """Dynamically discover all PointCloud2Graph lifting classes in the package.
 
         Parameters
         ----------
@@ -66,16 +66,18 @@ class ModuleExportsManager:
                 spec.loader.exec_module(module)
 
                 # Find all lifting classes in the module
-                for name, obj in inspect.getmembers(module):
+                new_liftings = {
+                    name: obj
+                    for name, obj in inspect.getmembers(module)
                     if (
                         inspect.isclass(obj)
                         and obj.__module__ == module.__name__
                         and not name.startswith("_")
-                        and issubclass(obj, PointCloud2HypergraphLifting)
-                        and obj != PointCloud2HypergraphLifting
-                    ):
-                        liftings[name] = obj
-
+                        and issubclass(obj, PointCloud2GraphLifting)
+                        and obj != PointCloud2GraphLifting
+                    )
+                }
+                liftings.update(new_liftings)
         return liftings
 
 
@@ -83,14 +85,14 @@ class ModuleExportsManager:
 manager = ModuleExportsManager()
 
 # Automatically discover and populate GRAPH2CELL_LIFTINGS
-POINTCLOUD2HYPERGRAPH_LIFTINGS = manager.discover_liftings(__file__)
+POINTCLOUD2GRAPH_LIFTINGS = manager.discover_liftings(__file__)
 
 # Automatically generate __all__
 __all__ = [
-    *POINTCLOUD2HYPERGRAPH_LIFTINGS.keys(),
-    "PointCloud2HypergraphLifting",
-    "POINTCLOUD2HYPERGRAPH_LIFTINGS",
+    *POINTCLOUD2GRAPH_LIFTINGS.keys(),
+    "PointCloud2GraphLifting",
+    "POINTCLOUD2GRAPH_LIFTINGS",
 ]
 
 # For backwards compatibility, create individual imports
-locals().update(**POINTCLOUD2HYPERGRAPH_LIFTINGS)
+locals().update(**POINTCLOUD2GRAPH_LIFTINGS)

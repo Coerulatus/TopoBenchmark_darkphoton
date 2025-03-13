@@ -11,7 +11,7 @@ defaults:
 
 transforms:
     pointcloud2hypergraph:
-      _target_: topobenchmark.transforms.data_transform.DataTransform
+      _target_: topobench.transforms.data_transform.DataTransform
       transform_type: 'lifting'
       transform_name: "DetectorLayerLifting"
       preserve_edge_attr: False
