@@ -1,11 +1,7 @@
 """Mixture of Gaussians and Minimum Spanning Tree (MoGMST) Lifting."""
 
-import numpy as np
 import torch
 import torch_geometric
-from networkx import from_numpy_array, minimum_spanning_tree
-from sklearn.metrics import pairwise_distances
-from sklearn.mixture import GaussianMixture
 
 from topobenchmark.transforms.liftings.pointcloud2hypergraph.base import (
     PointCloud2HypergraphLifting,
@@ -19,7 +15,7 @@ class DetectorLayerLifting(PointCloud2HypergraphLifting):
 
     Parameters
     ----------
-    layers : optional
+    layers : tuple, optional
         The layer to consider when creating the hyperedges.
     **kwargs : optional
         Additional arguments for the class.
@@ -27,7 +23,7 @@ class DetectorLayerLifting(PointCloud2HypergraphLifting):
 
     def __init__(
         self,
-        layers=[0, 1, 2, 3],
+        layers=(0, 1, 2, 3),
         **kwargs,
     ):
         super().__init__(**kwargs)

@@ -3,8 +3,8 @@
 from omegaconf import DictConfig
 from torch_geometric.data import Dataset
 
-from topobenchmark.data.loaders.base import AbstractLoader
 from topobenchmark.data.datasets import DarkPhotonDataset
+from topobenchmark.data.loaders.base import AbstractLoader
 
 
 class DarkPhotonDatasetLoader(AbstractLoader):
