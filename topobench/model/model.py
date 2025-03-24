@@ -3,6 +3,7 @@
 from typing import Any
 
 import torch
+import wandb
 from lightning import LightningModule
 from torch_geometric.data import Data
 from torchmetrics import MeanMetric
@@ -247,12 +248,24 @@ class TBModel(LightningModule):
         """
         metrics_dict = self.evaluator.compute()
         for key in metrics_dict:
-            self.log(
-                f"{mode}/{key}",
-                metrics_dict[key],
-                prog_bar=True,
-                on_step=False,
-            )
+            if key == "roc":
+                if mode == "test":
+                    names = ["fpr", "tpr", "thresholds"]
+                    metrics = metrics_dict[key]
+                    torch_table = torch.stack(
+                        [metrics[i][0] for i in range(len(metrics))], dim=1
+                    )
+                    table = wandb.Table(
+                        data=[t for t in torch_table], columns=names
+                    )
+                    wandb.log({f"{mode}/{key}": table})
+            else:
+                self.log(
+                    f"{mode}/{key}",
+                    metrics_dict[key],
+                    prog_bar=True,
+                    on_step=False,
+                )
 
         # Reset evaluator for next epoch
         self.evaluator.reset()

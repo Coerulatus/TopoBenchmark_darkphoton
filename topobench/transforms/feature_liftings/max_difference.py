@@ -114,7 +114,9 @@ class MaxDifference(torch_geometric.transforms.BaseTransform):
                         all_features.append(max_diffs)
                 if len(all_features) == 0:
                     data["x_" + elem] = torch.empty(
-                        0, data[f"x_{idx_to_project}"].shape[1]
+                        0,
+                        data[f"x_{idx_to_project}"].shape[1]
+                        * (1 + self.keep_original),
                     )
                 else:
                     data["x_" + elem] = torch.stack(all_features)

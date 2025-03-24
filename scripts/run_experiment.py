@@ -3,8 +3,10 @@
 import subprocess
 
 # Configurations
-project_name = "dark_photons"
-experiments = ["detector_layer_hypergraph"]  # "mlp", "gat",
+project_name = "dark_photons_roc"
+experiments = [
+    "same_particle_no_maxdiff"
+]  # ["gat", "detector_layer_no_maxdiff"]#, "detector_layer"]#, "same_particle"]  # "mlp", "gat",
 
 data_seeds = [0]
 # Run the commands in Python

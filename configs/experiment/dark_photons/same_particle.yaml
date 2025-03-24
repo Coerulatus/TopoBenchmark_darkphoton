@@ -5,15 +5,26 @@
 
 defaults:
   - override /dataset: pointcloud/dark_photons
-  - override /model: graph/mlp
+  - override /model: hypergraph/edgnn
   - override /callbacks: default
   - override /trainer: default
-  - override /transforms: null
+
+transforms:
+    pointcloud2hypergraph:
+      _target_: topobench.transforms.data_transform.DataTransform
+      transform_type: 'lifting'
+      transform_name: "SameParticleLifting"
+      preserve_edge_attr: False
+      complex_dim: 1
+      threshold: 0.4
+      max_neighbors: -1
+      feature_lifting: 'MaxDifference'
+
 
 # all parameters below will be merged with parameters from default configurations set above
 # this allows you to overwrite only specified parameters
 
-tags: ["mlp", "dark_photons"]
+tags: ["edgnn", "dark_photons", "same_particle", "max_diff"]
 
 seed: 42
 
@@ -26,16 +37,15 @@ trainer:
 model:
   feature_encoder:
     out_channels: 32
-  backbone:
-    n_layers: 2
   compile: false
 
 callbacks:
   model_checkpoint:
     dirpath: ./checkpoints/${dataset.loader.parameters.data_name}
-    filename: ${model.model_name}_seed_${dataset.split_params.data_seed}_epoch_{epoch:03d}
+    filename: ${model.model_name}_${transforms.pointcloud2hypergraph.transform_name}_seed_${dataset.split_params.data_seed}_epoch_{epoch:03d}
     monitor: val/accuracy
     mode: max 
 
 evaluator:
   metrics: ['accuracy', 'precision', 'recall', 'auroc', 'roc']
+

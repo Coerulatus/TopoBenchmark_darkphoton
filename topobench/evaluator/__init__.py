@@ -1,6 +1,6 @@
 """Evaluators for model evaluation."""
 
-from torchmetrics.classification import AUROC, Accuracy, Precision, Recall
+from torchmetrics.classification import AUROC, ROC, Accuracy, Precision, Recall
 from torchmetrics.regression import MeanAbsoluteError, MeanSquaredError
 
 from .metrics import ExampleRegressionMetric
@@ -14,6 +14,7 @@ METRICS = {
     "mae": MeanAbsoluteError,
     "mse": MeanSquaredError,
     "example": ExampleRegressionMetric,
+    "roc": ROC,
 }
 
 from .base import AbstractEvaluator  # noqa: E402

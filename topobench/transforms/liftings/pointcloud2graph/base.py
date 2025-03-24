@@ -1,6 +1,6 @@
 """Abstract class for lifting pointclouds to graphs."""
 
-from topobenchmark.transforms.liftings.liftings import PointCloudLifting
+from topobench.transforms.liftings.liftings import PointCloudLifting
 
 
 class PointCloud2GraphLifting(PointCloudLifting):
