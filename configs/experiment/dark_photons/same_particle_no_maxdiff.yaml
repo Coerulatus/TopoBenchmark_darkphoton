@@ -23,7 +23,7 @@ transforms:
 # all parameters below will be merged with parameters from default configurations set above
 # this allows you to overwrite only specified parameters
 
-tags: ["edgnn", "dark_photons", "same_particle", "max_diff"]
+tags: ["edgnn", "dark_photons", "same_particle"]
 
 seed: 42
 
@@ -38,13 +38,6 @@ model:
     out_channels: 32
   compile: false
 
-callbacks:
-  model_checkpoint:
-    dirpath: ./checkpoints/${dataset.loader.parameters.data_name}
-    filename: ${model.model_name}_${transforms.pointcloud2hypergraph.transform_name}_seed_${dataset.split_params.data_seed}_epoch_{epoch:03d}
-    monitor: val/accuracy
-    mode: max 
-
 evaluator:
-  metrics: ['accuracy', 'precision', 'recall', 'auroc', 'roc']
+  metrics: ['accuracy', 'precision', 'recall', 'auroc', 'roc', 'f1']
 

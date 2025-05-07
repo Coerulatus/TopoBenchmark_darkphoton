@@ -39,13 +39,6 @@ model:
     out_channels: 32
   compile: false
 
-callbacks:
-  model_checkpoint:
-    dirpath: ./checkpoints/${dataset.loader.parameters.data_name}
-    filename: ${model.model_name}_${transforms.pointcloud2hypergraph.transform_name}_seed_${dataset.split_params.data_seed}_epoch_{epoch:03d}
-    monitor: val/accuracy
-    mode: max 
-
 evaluator:
-  metrics: ['accuracy', 'precision', 'recall', 'auroc', 'roc']
+  metrics: ['accuracy', 'precision', 'recall', 'auroc', 'roc', 'f1']
 

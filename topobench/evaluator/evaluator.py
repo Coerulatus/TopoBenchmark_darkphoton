@@ -49,7 +49,7 @@ class TBEvaluator(AbstractEvaluator):
 
         metrics = {}
         for name in metric_names:
-            if name in ["recall", "precision", "auroc"]:
+            if name in ["recall", "precision", "auroc", "f1"]:
                 metrics[name] = METRICS[name](average="macro", **parameters)
 
             else:
